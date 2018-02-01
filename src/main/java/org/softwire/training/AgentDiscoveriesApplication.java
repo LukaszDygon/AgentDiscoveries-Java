@@ -57,6 +57,7 @@ public class AgentDiscoveriesApplication implements Runnable {
                 path("/regions", this::regionsRouteGroup);
                 path("/reports/locationstatuses", this::reportsRouteGroup);
                 setupBasicEntityCrudRoutes("/locations", locationsRoutes);
+                get("/locations", locationsRoutes::readEntities, responseTransformer);
                 setupBasicEntityCrudRoutes("/users", usersRoutes);
 
                 // API endpoint to initiate shutdown
