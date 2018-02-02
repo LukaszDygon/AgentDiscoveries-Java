@@ -1,17 +1,10 @@
 package org.softwire.training.api.models.searchcriteria;
 
-import org.softwire.training.models.LocationStatusReportWithTimeZone;
+import org.softwire.training.models.ReportBase;
 
-import java.util.function.Predicate;
-
-public class DigitsInBodyApiSearchCriterion extends ApiReportSearchCriterionBase {
+public class DigitsInBodyApiSearchCriterion<T extends ReportBase> extends ApiReportSearchCriterionBase<T> {
 
     public DigitsInBodyApiSearchCriterion(int digitsInBody) {
-        super(getSearchPredictForNumberOfDigits(digitsInBody));
-    }
-
-    private static Predicate<LocationStatusReportWithTimeZone> getSearchPredictForNumberOfDigits(int digitsInBody) {
-        return locationStatusReport -> locationStatusReport.getReportBody()
-                .codePoints().filter(Character::isDigit).count() == digitsInBody;
+        super(report -> report.getReportBody().codePoints().filter(Character::isDigit).count() == digitsInBody);
     }
 }

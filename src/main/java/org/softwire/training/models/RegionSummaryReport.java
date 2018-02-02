@@ -1,9 +1,9 @@
 package org.softwire.training.models;
 
-public class LocationStatusReport extends ReportBase {
+public class RegionSummaryReport extends ReportBase {
 
     private int locationId;
-    private int agentId;
+    private int userId;
 
     public int getLocationId() {
         return locationId;
@@ -13,11 +13,11 @@ public class LocationStatusReport extends ReportBase {
         this.locationId = locationId;
     }
 
-    public int getAgentId() {
-        return agentId;
+    public int getUserId() {
+        return userId;
     }
 
-    public void setAgentId(int agentId) {
-        this.agentId = agentId;
+    public void setUserId(int userId) {
+        this.userId = userId;
     }
 }

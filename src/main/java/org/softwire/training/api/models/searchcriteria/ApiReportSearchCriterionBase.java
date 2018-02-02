@@ -1,30 +1,28 @@
 package org.softwire.training.api.models.searchcriteria;
 
 import org.softwire.training.db.daos.searchcriteria.ReportSearchCriterion;
-import org.softwire.training.models.LocationStatusReport;
-import org.softwire.training.models.LocationStatusReportWithTimeZone;
 
 import java.util.Optional;
 import java.util.function.Predicate;
 
-class ApiReportSearchCriterionBase implements  ApiReportSearchCriterion {
+class ApiReportSearchCriterionBase<T> implements ApiReportSearchCriterion<T> {
 
     private final Optional<ReportSearchCriterion> reportSearchCriterion;
-    private final Predicate<LocationStatusReportWithTimeZone> locationStatusReportPredicate;
+    private final Predicate<T> criterionResultInclusionPredicate;
 
     ApiReportSearchCriterionBase(ReportSearchCriterion criterion) {
         reportSearchCriterion = Optional.of(criterion);
-        locationStatusReportPredicate = report -> true;
+        criterionResultInclusionPredicate = report -> true;
     }
 
-    ApiReportSearchCriterionBase(Predicate<LocationStatusReportWithTimeZone> predicate) {
+    ApiReportSearchCriterionBase(Predicate<T> predicate) {
         reportSearchCriterion = Optional.empty();
-        locationStatusReportPredicate = predicate;
+        criterionResultInclusionPredicate = predicate;
     }
 
-    ApiReportSearchCriterionBase(ReportSearchCriterion criterion, Predicate<LocationStatusReportWithTimeZone> predicate) {
+    ApiReportSearchCriterionBase(ReportSearchCriterion criterion, Predicate<T> predicate) {
         reportSearchCriterion = Optional.of(criterion);
-        locationStatusReportPredicate = predicate;
+        criterionResultInclusionPredicate = predicate;
     }
 
     @Override
@@ -33,7 +31,7 @@ class ApiReportSearchCriterionBase implements  ApiReportSearchCriterion {
     }
 
     @Override
-    public Predicate<LocationStatusReportWithTimeZone> getCriterionResultInclusionPredicate() {
-        return locationStatusReportPredicate;
+    public Predicate<T> getCriterionResultInclusionPredicate() {
+        return criterionResultInclusionPredicate;
     }
 }

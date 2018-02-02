@@ -8,9 +8,9 @@ import java.time.ZonedDateTime;
 import java.util.TimeZone;
 import java.util.function.Predicate;
 
-public class FromTimeApiSearchCriterion extends ApiReportSearchCriterionBase {
+public class FromTimeApiLocationStatusSearchCriterion extends ApiReportSearchCriterionBase<LocationStatusReportWithTimeZone> {
 
-    public FromTimeApiSearchCriterion(ZonedDateTime fromTime) {
+    public FromTimeApiLocationStatusSearchCriterion(ZonedDateTime fromTime) {
         // Use a DAO search criterion with the smallest possible local time to reduce number of results filtered in code
         super(
             new FromTimeSearchCriterion(fromTime.withZoneSameInstant(ZoneOffset.MIN).toLocalDateTime()),

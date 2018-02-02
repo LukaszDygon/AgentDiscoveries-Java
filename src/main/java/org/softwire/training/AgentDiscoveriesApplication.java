@@ -55,7 +55,7 @@ public class AgentDiscoveriesApplication implements Runnable {
 
                 path("/agents", this::agentsRouteGroup);
                 path("/regions", this::regionsRouteGroup);
-                path("/reports/locationstatuses", this::reportsRouteGroup);
+                path("/reports/locationstatuses", () -> reportsRouteGroup(locationStatusReportsRoutes));
                 setupBasicEntityCrudRoutes("/locations", locationsRoutes);
                 get("/locations", locationsRoutes::readEntities, responseTransformer);
                 setupBasicEntityCrudRoutes("/users", usersRoutes);
@@ -93,11 +93,11 @@ public class AgentDiscoveriesApplication implements Runnable {
         delete("/:id", (req, res) -> regionsRoutes.deleteRegion(req, res, idParamAsInt(req)), responseTransformer);
     }
 
-    private void reportsRouteGroup() {
-        post("", locationStatusReportsRoutes::createReport, responseTransformer);
-        get("/:id", (req, res) -> locationStatusReportsRoutes.readReport(req, res, idParamAsInt(req)), responseTransformer);
-        delete("/:id", (req, res) -> locationStatusReportsRoutes.deleteReport(req, res, idParamAsInt(req)), responseTransformer);
-        get("", locationStatusReportsRoutes::searchReports, responseTransformer);
+    private void reportsRouteGroup(ReportsRoutesBase<?, ?, ? > reportsRoutes) {
+        post("", reportsRoutes::createReport, responseTransformer);
+        get("/:id", (req, res) -> reportsRoutes.readReport(req, res, idParamAsInt(req)), responseTransformer);
+        delete("/:id", (req, res) -> reportsRoutes.deleteReport(req, res, idParamAsInt(req)), responseTransformer);
+        get("", reportsRoutes::searchReports, responseTransformer);
     }
 
     private void setupBasicEntityCrudRoutes(String path, EntityCRUDRoutes entityCRUDRoutes) {
