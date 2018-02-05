@@ -35,6 +35,7 @@ public class AgentDiscoveriesApplication implements Runnable {
     @Inject LocationsRoutes locationsRoutes;
     @Inject RegionsRoutes regionsRoutes;
     @Inject LocationStatusReportsRoutes locationStatusReportsRoutes;
+    @Inject RegionSummaryReportsRoutes regionSummaryReportsRoutes;
     @Inject UsersRoutes usersRoutes;
 
     @Override
@@ -56,6 +57,7 @@ public class AgentDiscoveriesApplication implements Runnable {
                 path("/agents", this::agentsRouteGroup);
                 path("/regions", this::regionsRouteGroup);
                 path("/reports/locationstatuses", () -> reportsRouteGroup(locationStatusReportsRoutes));
+                path("/reports/regionsummaries", () -> reportsRouteGroup(regionSummaryReportsRoutes));
                 setupBasicEntityCrudRoutes("/locations", locationsRoutes);
                 get("/locations", locationsRoutes::readEntities, responseTransformer);
                 setupBasicEntityCrudRoutes("/users", usersRoutes);

@@ -2,15 +2,15 @@ package org.softwire.training.models;
 
 public class RegionSummaryReport extends ReportBase {
 
-    private int locationId;
+    private int regionId;
     private int userId;
 
-    public int getLocationId() {
-        return locationId;
+    public int getRegionId() {
+        return regionId;
     }
 
-    public void setLocationId(int locationId) {
-        this.locationId = locationId;
+    public void setRegionId(int regionId) {
+        this.regionId = regionId;
     }
 
     public int getUserId() {
